@@ -9,21 +9,19 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql+psycopg2://{DBUSER}:{DBPASS}@{DBHOST}/postgres'
 app.config['SECRET_KEY'] = 'yt32fffdyju75h456h456y4yu46u576i'
-
+CORS(app)
 
 db.init_app(app)
 api = Api(app)
 
-CORS(app)
 
-from controllers.dishes import DishAll,DishOne #,DishFilter
-from controllers.categories import CategoryAll,CategoryOne
 
-api.add_resource(DishAll,'/dishes')
-api.add_resource(DishOne,'/dishes/<int:id>')
+from controllers.dishes import DishAll
+from controllers.categories import CategoryAll
+
 api.add_resource(CategoryAll,'/categories')
-api.add_resource(CategoryOne,'/categories/<int:id>')
-# api.add_resource(DishFilter,'/dishes/category/<int:category_id>')
+api.add_resource(DishAll,'/dishes')
+
 
 
 if __name__ == '__main__':
